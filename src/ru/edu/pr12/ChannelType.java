@@ -1,1 +1,5 @@
-package ru.edu.pr12; public enum ChannelType { EMAIL, SMS, INTERNAL }
+package ru.edu.pr12;
+
+public enum ChannelType {
+    EMAIL, SMS, INTERNAL
+}
