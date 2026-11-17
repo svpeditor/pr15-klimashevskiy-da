@@ -1,0 +1,15 @@
+type;recipient;message
+EMAIL;a@b.c;Short address
+EMAIL;user@localhost;No dot in domain
+EMAIL;user@@example.com;Two at
+SMS;+79990000000;Code 1234
+SMS;89990000000;Code 1234
+SMS;+7999000000;Nine digits
+INTERNAL;u-100;Task updated
+INTERNAL; ;Task updated
+PUSH;dev-42;Report is ready, check it
+PUSH;dev-42;Report is ready, check it!
+PUSH;dev 42;Space in token
+EMAIL;user@example.com;
+FAX;123;Old school
+SMS;+79990000000
