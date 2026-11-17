@@ -11,6 +11,7 @@ public class ChannelFactory {
         channels.put(ChannelType.EMAIL, new EmailChannel());
         channels.put(ChannelType.SMS, new SmsChannel());
         channels.put(ChannelType.INTERNAL, new InternalChannel());
+        channels.put(ChannelType.PUSH, new PushChannel());
     }
 
     // свои каналы, например заглушки для проверки сервиса

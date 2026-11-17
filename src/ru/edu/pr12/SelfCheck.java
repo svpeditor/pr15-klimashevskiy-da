@@ -16,6 +16,7 @@ public class SelfCheck {
         checkSms();
         checkInternalAndFactory();
         checkServiceWithFake();
+        checkVariant();
         System.out.println("Unit: " + passed + "/" + count + " passed");
         // свой файл: java -cp out ru.edu.pr12.SelfCheck data/my.csv
         runFile(args.length > 0 ? args[0] : "data/sample.csv");
@@ -58,6 +59,18 @@ public class SelfCheck {
         s.notify(new NotificationRequest(ChannelType.EMAIL, "bad", "Meeting moved"));
         check("fake not called on bad recipient", fake.sent == 1);
         check("fake factory without sms", !tryFactory(new ChannelFactory(Map.of(ChannelType.EMAIL, fake)), ChannelType.SMS));
+    }
+
+    private static void checkVariant() {
+        // вариант 4: канал PUSH, текст до 25 символов
+        check("variant max 25", PushChannel.MAX_LENGTH == 25);
+        check("variant factory push", new ChannelFactory().get(ChannelType.PUSH) instanceof PushChannel);
+        check("variant push 25 chars", SERVICE.notify(new NotificationRequest(ChannelType.PUSH, "dev-42", "x".repeat(25))).success());
+        check("variant push 26 chars", !SERVICE.notify(new NotificationRequest(ChannelType.PUSH, "dev-42", "x".repeat(26))).success());
+        check("variant push space", !sent(ChannelType.PUSH, "dev 42"));
+        check("variant push blank", !sent(ChannelType.PUSH, ""));
+        // старые каналы работают как раньше
+        check("variant email unchanged", sent(ChannelType.EMAIL, "user@example.com"));
     }
 
     // ---------- вспомогательные методы ----------
